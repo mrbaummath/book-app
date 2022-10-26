@@ -7,7 +7,7 @@ export const bookIndex = (user) => {
         headers: {
 			Authorization: `Token token=${user.token}`,
 		},
-		url: apiUrl + '/books',
+		url: `${apiUrl}/books/`
 	})
 }
 
@@ -32,7 +32,7 @@ export const bookShow = (user, bookId) => {
         headers: {
 			Authorization: `Token token=${user.token}`,
 		},
-		url: apiUrl + `/books/${bookId}`,
+		url: `${apiUrl}/books/${bookId}`
 	})
 }
 
@@ -46,5 +46,15 @@ export const bookUpdate = (book,user, bookId) => {
 		data: {
 			book: book
 		}
+	})
+}
+
+export const bookDelete = (user, bookId) => {
+	return axios({
+		method: 'DELETE',
+        headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		url: `${apiUrl}/books/${bookId}`
 	})
 }

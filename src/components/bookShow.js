@@ -1,13 +1,16 @@
 import React, {useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { bookShow, bookUpdate } from '../api/book'
+import { useParams, useNavigate } from 'react-router-dom'
+import { bookDelete, bookShow, bookUpdate } from '../api/book'
 import BookUpdate from './bookUpdate'
 
 
 const BookShow = ({ user, msgAlert }) => {
     const [book, setBook] = useState({})
     const [updateable, setUpdateable] = useState(false)
+    const [updated, setUpdated] = useState(false)
     const [updatedBook, setUpdatedBook] = useState({})
+    const [deleted, setDeleted] = useState(false)
+    const navigate = useNavigate()
 
     const { id } = useParams()
 
@@ -18,7 +21,7 @@ const BookShow = ({ user, msgAlert }) => {
     const handleUpdateBook = () => {
         bookUpdate(updatedBook, user, id)
             .then(() => {
-                setBook(updatedBook)
+                setUpdated(true)
             })
             .catch(error => {
                 msgAlert({
@@ -28,6 +31,27 @@ const BookShow = ({ user, msgAlert }) => {
                     })
             })
     }
+
+    const handleDeleteBook = () => {
+        bookDelete(user, id)
+            .then(() => {
+                setDeleted(true)
+            })
+            .catch(error => {
+                msgAlert({
+                heading: 'Failure',
+                message: 'Delete Book Failure' + error,
+                variant: 'danger'
+                })
+            })
+    }
+
+    useEffect(()=>{
+        if (deleted || updated) {
+            navigate('/books')
+        }
+    },
+    [deleted, updated])
 
     useEffect(()=>{
         bookShow(user,id)
@@ -57,6 +81,7 @@ const BookShow = ({ user, msgAlert }) => {
             <p>{book.title} was written by {book.author}</p>
             <button onClick={toggleShowUpdate}>Update</button>
             {updateable && (<BookUpdate handleChange={handleChange} handleUpdateBook={handleUpdateBook} book={updatedBook} />)}
+            <button onClick={handleDeleteBook}>Delete</button>
 
         </>
     )

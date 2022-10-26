@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { bookCreate } from '../api/book'
 
 const BookCreate = ({ user, msgAlert }) => {
@@ -9,6 +10,9 @@ const BookCreate = ({ user, msgAlert }) => {
     }
 
     const [book, setBook] = useState(defaultBook)
+    const [created, setCreated] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         setBook({...book, [event.target.name]: event.target.value})
@@ -22,9 +26,16 @@ const BookCreate = ({ user, msgAlert }) => {
                     message: 'Create Pet',
                     variant: 'success'
                 })
+                setCreated(true)
             })
             .catch(console.error)
     }
+
+    useEffect(()=>{
+        if (created) {
+            navigate('/books')
+        }
+    },[created])
 
     return (
         <>
