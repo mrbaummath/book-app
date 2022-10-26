@@ -19,11 +19,6 @@ const authenticatedOptions = (
 			</Link>
 		</Nav.Item>
 		<Nav.Item>
-			<Link to='books/' style={linkStyle}>
-				See all Books
-			</Link>
-		</Nav.Item>
-		<Nav.Item>
 			<Link to='books/create' style={linkStyle}>
 				Create a Book
 			</Link>
