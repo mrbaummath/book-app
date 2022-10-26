@@ -1,7 +1,17 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const bookCreate = (data, user) => {
+export const bookIndex = (user) => {
+	return axios({
+		method: 'GET',
+        headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		url: apiUrl + '/books',
+	})
+}
+
+export const bookCreate = (newBook, user) => {
 	return axios({
 		method: 'POST',
         headers: {
@@ -9,7 +19,32 @@ export const bookCreate = (data, user) => {
 		},
 		url: apiUrl + '/books',
 		data: {
-			book: data
+			book: newBook
+		}
+	})
+}
+
+
+
+export const bookShow = (user, bookId) => {
+	return axios({
+		method: 'GET',
+        headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		url: apiUrl + `/books/${bookId}`,
+	})
+}
+
+export const bookUpdate = (book,user, bookId) => {
+	return axios({
+		method: 'PATCH',
+        headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		url: apiUrl + `/books/${bookId}`,
+		data: {
+			book: book
 		}
 	})
 }
