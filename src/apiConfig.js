@@ -1,7 +1,7 @@
 let apiUrl
 const apiUrls = {
     // YOU MUST CHANGE PRODUCTION URL WHEN DEPLOYING
-	production: 'https://booksapi.fly.dev/',
+	production: 'https://booksapi.fly.dev',
 	development: 'http://localhost:8000',
 }
 
