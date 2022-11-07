@@ -26,7 +26,7 @@ const BookShow = ({ user, msgAlert }) => {
             .catch(error => {
                 msgAlert({
                     heading: 'Failure',
-                    message: 'Update Pet Failure' + error,
+                    message: 'Update Book Failure' + error,
                     variant: 'danger'
                     })
             })

@@ -23,7 +23,7 @@ const BookCreate = ({ user, msgAlert }) => {
             .then(() => {
                 msgAlert({
                     heading: 'Success',
-                    message: 'Create Pet',
+                    message: 'Create Book',
                     variant: 'success'
                 })
                 setCreated(true)
